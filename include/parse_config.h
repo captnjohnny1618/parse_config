@@ -1,6 +1,9 @@
 #ifndef parse_config_h
 #define parse_config_h
 
+#include <stdlib.h>
+#include <stdio.h>
+
 #define STRUCT_TYPE struct recon_params
 #define COMMENT_DELIM '%'
 
@@ -33,6 +36,46 @@ struct recon_params {
     float adaptive_filtration_s;
     int n_slices;
 };
+inline void empty_config(const char * filepath){
+char fullpath[4096+255]={0};
+strcpy(fullpath,filepath);
+
+FILE * fid = fopen(fullpath,"w");
+
+fprintf(fid,
+"RawDataDir:\n"
+"RawDataFile:\n"
+"OutputDir:\n"
+"OutputFile:\n"
+"Nrows:\n"
+"CollSlicewidth:\n"
+"StartPos:\n"
+"EndPos:\n"
+"TableFeed:\n"
+"SliceThickness:\n"
+"AcqFOV:\n"
+"ReconFOV:\n"
+"ReconKernel:\n"
+"Readings:\n"
+"Xorigin:\n"
+"Yorigin:\n"
+"Zffs:\n"
+"Phiffs:\n"
+"Scanner:\n"
+"FileType:\n"
+"FileSubType:\n"
+"RawOffset:\n"
+"Nx:\n"
+"Ny:\n"
+"TubeStartAngle:\n"
+"AdaptiveFiltration:\n"
+"NSlices:\n"
+);
+
+    fclose(fid);
+    exit(0);
+};
+
 
 void parse_config(char * config_file, STRUCT_TYPE * structure);
 

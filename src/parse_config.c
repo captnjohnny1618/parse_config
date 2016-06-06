@@ -2,7 +2,6 @@
 #include <string.h>
 
 #include <parse_config.h>
-#include <recon_structs.h>
 
 size_t find_char(char * str, char delim){
     int i=0;
@@ -22,7 +21,7 @@ void parse_config(char * config_file, STRUCT_TYPE * structure){
 	
     while (fgets(raw_line,1024,conf)!=NULL){
 	// Strip comments off of the line
-	size_t first_delim=find_char(raw_line,'%');
+	size_t first_delim=find_char(raw_line,COMMENT_DELIM);
 	memcpy(line_no_comments,raw_line,first_delim);	
 
 	// Parse tokens and values

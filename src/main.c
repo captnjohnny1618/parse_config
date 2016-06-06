@@ -24,7 +24,6 @@
 #include <string.h>
 
 #include <parse_config.h>
-#include <recon_structs.h>
 
 void usage(){
     exit(0);

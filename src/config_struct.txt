@@ -1,1 +1,0 @@
-#define STRUCT_TYPE struct recon_params

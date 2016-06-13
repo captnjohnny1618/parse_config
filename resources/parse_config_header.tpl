@@ -1,4 +1,4 @@
-/* CTBangBang is GPU and CPU CT reconstruction Software */
+/* FreeCT_wFBP is GPU and CPU CT reconstruction Software */
 /* Copyright (C) 2015  John Hoffman */
 
 /* This program is free software; you can redistribute it and/or */
@@ -18,25 +18,41 @@
 /* Questions and comments should be directed to */
 /* jmhoffman@mednet.ucla.edu with "CTBANGBANG" in the subject line*/
 
+/* This file was automatically generated using a code-generation
+   script.  Changes made directly to the .c file will likely be
+   overwritten.  If you have suggested changes to the script we may
+   implement them in the templates.  Please contact
+   freect.project@gmail.com.*/
 
-#include <stdio.h>
+
+#ifndef parse_config_h
+#define parse_config_h
+
 #include <stdlib.h>
-#include <string.h>
+#include <stdio.h>
 
-#include <parse_config.h>
+#define COMMENT_DELIM '{{data['comment_delim']}}'
 
-void usage(){
+struct {{data['struct_type']}} {
+    {{data['struct_def_string']}}
+};
+
+static inline void empty_config(const char * filepath){
+    char fullpath[4096+255]={0};
+    strcpy(fullpath,filepath);
+
+    FILE * fid = fopen(fullpath,"w");
+
+    fprintf(fid,
+
+    {{data['empty_config_string']}}
+
+    );
+
+    fclose(fid);
     exit(0);
-}
+};
 
-int main(int argc, char ** argv){
+void parse_config(char * config_file, struct {{data['struct_type']}} * structure);
 
-    struct recon_params rp;
-    memset(&rp,0,sizeof(rp));
-    
-    parse_config(argv[1],&rp);
-
-    empty_config("./empty_parameter.txt");
-    
-    return 0;
-}
+#endif

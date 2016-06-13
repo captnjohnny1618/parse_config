@@ -195,6 +195,16 @@ if (strcmp(token,"NSlices:")==0){
     token=strtok(NULL," \t");
     sscanf(token,"%d",&structure->n_slices);
 }
+if (strcmp(token,"TableDir:")==0){
+    printf("Token \"%s\" detected\n",token);
+    token=strtok(NULL," \t");
+    sscanf(token,"%s",structure->table_dir_str);
+}
+if (strcmp(token,"TableDirInt:")==0){
+    printf("Token \"%s\" detected\n",token);
+    token=strtok(NULL," \t");
+    sscanf(token,"%d",&structure->table_dir);
+}
 
 	}
 	else{

@@ -12,6 +12,10 @@ rebuild:
 	mkdir -p src/obj	
 	$(MAKE) -C src ../parse_sample
 
+send_to_ctbb:
+	cp -u build/parse_config.h ../CTBangBang/include/
+	cp -u build/parse_config.c ../CTBangBang/src/parse_config.cu
+
 .PHONY: all clean
 
 clean:

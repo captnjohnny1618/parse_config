@@ -61,6 +61,8 @@ struct recon_params {
     float tube_start_angle;
     float adaptive_filtration_s;
     int n_slices;
+    char table_dir_str[1024];
+    int table_dir;
 
 };
 
@@ -100,6 +102,8 @@ static inline void empty_config(const char * filepath){
 "TubeStartAngle:\n"
 "AdaptiveFiltration:\n"
 "NSlices:\n"
+"TableDir:\n"
+"TableDirInt:\n"
 
 
     );

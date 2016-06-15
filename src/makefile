@@ -11,7 +11,7 @@ LIBS=
 
 CFLAGS=$(INCLUDES) -g -Wall -std=c99
 
-_OBJ=parse_config.o main.o 
+_OBJ=main.o parse_config.o 
 OBJ=$(patsubst %,$(ODIR)/%,$(_OBJ));
 
 all: compile_source ../$(EXE_NAME)
@@ -33,5 +33,5 @@ obj/parse_config.o: parse_config.c
 .PHONY: all test clean
 
 clean:
-	rm obj/*.o; rm -rf ../*~
+	rm obj/*.o; rm -rf src/*~
 

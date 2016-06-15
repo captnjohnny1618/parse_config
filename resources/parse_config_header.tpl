@@ -30,6 +30,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define COMMENT_DELIM '{{data['comment_delim']}}'
 
@@ -53,6 +54,6 @@ static inline void empty_config(const char * filepath){
     exit(0);
 };
 
-void parse_config(char * config_file, struct {{data['struct_type']}} * structure);
+int parse_config(char * config_file, struct {{data['struct_type']}} * structure);
 
 #endif

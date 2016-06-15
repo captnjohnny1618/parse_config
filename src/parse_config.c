@@ -26,8 +26,14 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <errno.h>
 
-#include <parse_config.h>
+#include "parse_config.h"
+
+#define clean_errno() (errno == 0 ? "None" : strerror(errno))
+#define log_err(M, ...) fprintf(stderr, "[ERROR] (%s:%d: errno: %s) " M "\n", __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
+#define log_warn(M, ...) fprintf(stderr, "[WARN] (%s:%d: errno: %s) " M "\n", __FILE__, __LINE__, clean_errno(), ##__VA_ARGS__)
+#define check(A, M, ...) if(!(A)) { log_err(M, ##__VA_ARGS__); errno=0; goto error; }
 
 size_t find_char(char * str, char delim){
     int i=0;
@@ -37,10 +43,12 @@ size_t find_char(char * str, char delim){
     return i;
 }
 
-void parse_config(char * config_file, struct recon_params * structure){
+int parse_config(char * config_file, struct recon_params * structure){
 
     FILE * conf=fopen(config_file,"r");
-    
+
+    check(conf, "Could not open configuration file: %s",config_file);
+
     char raw_line[1024];
     char line_no_comments[1024];
     char * token;
@@ -48,11 +56,17 @@ void parse_config(char * config_file, struct recon_params * structure){
     while (fgets(raw_line,1024,conf)!=NULL){
 	// Strip comments off of the line
 	size_t first_delim=find_char(raw_line,COMMENT_DELIM);
-	memcpy(line_no_comments,raw_line,first_delim);	
+	memcpy(line_no_comments,raw_line,first_delim);
 
 	// Parse tokens and values
 	if (strcmp(line_no_comments,"")!=0&&strcmp(line_no_comments,"\n")!=0){
 	    token=strtok(line_no_comments," \t");
+
+	    if (!token){
+		log_warn("NULL token when parsing configuration file.  Are you sure you've passed the correct file: %s?",config_file);
+		memset(line_no_comments,0,1024);
+		continue;
+	    }
 
 	    
 if (strcmp(token,"RawDataDir:")==0){
@@ -214,4 +228,11 @@ if (strcmp(token,"TableDirInt:")==0){
     }
 
     fclose(conf);
+
+    return 0;
+
+ error:
+    if (conf)
+	fclose(conf);
+    return -1;
 }

@@ -30,6 +30,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #define COMMENT_DELIM '%'
 
@@ -112,6 +113,6 @@ static inline void empty_config(const char * filepath){
     exit(0);
 };
 
-void parse_config(char * config_file, struct recon_params * structure);
+int parse_config(char * config_file, struct recon_params * structure);
 
 #endif

@@ -16,6 +16,10 @@ send_to_ctbb:
 	cp -u build/parse_config.h ../CTBangBang/include/
 	cp -u build/parse_config.c ../CTBangBang/src/parse_config.cu
 
+send_to_ctbb_icd:
+	cp -u build/parse_config.h ../CTBangBang_ICD/src/
+	cp -u build/parse_config.c ../CTBangBang_ICD/src/parse_config.cpp
+
 .PHONY: all clean
 
 clean:
